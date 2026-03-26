@@ -1,0 +1,136 @@
+/* ════════════════════════════════════════════
+   HUNT.FUN — ANIMATIONS
+   ════════════════════════════════════════════ */
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px var(--green); }
+  50%       { opacity: 0.5; transform: scale(0.8); box-shadow: 0 0 2px var(--green); }
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes feedFlash {
+  0%   { background: rgba(0, 255, 65, 0.3); border-left-color: var(--green); }
+  100% { background: transparent; }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes popupAppear {
+  from { opacity: 0; transform: translateY(10px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes huntBorder {
+  from { box-shadow: inset 0 0 40px rgba(255, 34, 34, 0.08); }
+  to   { box-shadow: inset 0 0 80px rgba(255, 34, 34, 0.22); }
+}
+
+@keyframes pulseText {
+  from { text-shadow: 0 0 6px var(--green); }
+  to   { text-shadow: 0 0 20px var(--green), 0 0 40px var(--green-glow); }
+}
+
+@keyframes typeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes glitch {
+  0%        { clip-path: inset(0 0 90% 0); transform: translateX(-4px); }
+  10%       { clip-path: inset(30% 0 50% 0); transform: translateX(4px); }
+  20%       { clip-path: inset(60% 0 20% 0); transform: translateX(-2px); }
+  30%, 100% { clip-path: inset(0); transform: translateX(0); }
+}
+
+@keyframes scanDown {
+  0%   { top: -4px; }
+  100% { top: 100%; }
+}
+
+/* Glitch effect on elements */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  color: var(--green);
+}
+
+.glitch-text::before {
+  animation: glitch 3s infinite;
+  color: var(--cyan);
+  opacity: 0.6;
+}
+
+.glitch-text::after {
+  animation: glitch 3s infinite reverse;
+  color: var(--red);
+  opacity: 0.4;
+}
+
+/* Score bar animation */
+@keyframes scoreReveal {
+  from { width: 0%; }
+}
+
+/* Hunt mode pulse overlay */
+@keyframes huntPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Pixel highlight on hover */
+.pixel-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.pixel-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(0, 255, 65, 0) 0px,
+    rgba(0, 255, 65, 0) 2px,
+    rgba(0, 255, 65, 0.03) 2px,
+    rgba(0, 255, 65, 0.03) 4px
+  );
+  opacity: 0;
+  transition: opacity 0.1s;
+  pointer-events: none;
+}
+
+.pixel-hover:hover::after {
+  opacity: 1;
+}
+
+/* CRT flicker */
+@keyframes crtFlicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%           { opacity: 0.95; }
+  97%           { opacity: 1; }
+  98%           { opacity: 0.92; }
+  99%           { opacity: 1; }
+}
+
+body {
+  animation: crtFlicker 8s infinite;
+}

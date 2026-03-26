@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUNT.FUN — ENTER THE HUNT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/terminal.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body class="boot-screen">
+
+  <div class="scanlines"></div>
+  <div class="crt-overlay"></div>
+
+  <div class="boot-container">
+    <div class="logo-ascii">
+<pre id="ascii-logo">
+██╗  ██╗██╗   ██╗███╗   ██╗████████╗   ███████╗██╗   ██╗███╗   ██╗
+██║  ██║██║   ██║████╗  ██║╚══██╔══╝   ██╔════╝██║   ██║████╗  ██║
+███████║██║   ██║██╔██╗ ██║   ██║      █████╗  ██║   ██║██╔██╗ ██║
+██╔══██║██║   ██║██║╚██╗██║   ██║      ██╔══╝  ██║   ██║██║╚██╗██║
+██║  ██║╚██████╔╝██║ ╚████║   ██║      ██║     ╚██████╔╝██║ ╚████║
+╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝      ╚═╝      ╚═════╝ ╚═╝  ╚═══╝
+</pre>
+    </div>
+
+    <div class="terminal-boot">
+      <div id="boot-lines"></div>
+      <div class="cursor-line">
+        <span class="prompt">root@hunt:~$</span>
+        <span class="cursor-blink">█</span>
+      </div>
+    </div>
+
+    <div id="enter-btn-wrap" class="hidden">
+      <button id="enter-btn" onclick="enterHunt()">
+        <span class="btn-bracket">[</span>
+        ENTER THE HUNT
+        <span class="btn-bracket">]</span>
+      </button>
+      <div class="subtext">SOLANA MEMECOIN SIGNAL TERMINAL — v0.9.1-alpha</div>
+    </div>
+  </div>
+
+  <div class="corner corner-tl">╔</div>
+  <div class="corner corner-tr">╗</div>
+  <div class="corner corner-bl">╚</div>
+  <div class="corner corner-br">╝</div>
+
+  <script src="js/boot.js"></script>
+</body>
+</html>

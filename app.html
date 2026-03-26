@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUNT.FUN — TERMINAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/terminal.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body class="app-body">
+
+  <div class="scanlines"></div>
+  <div class="crt-overlay"></div>
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <div class="top-left">
+      <span class="logo-text">HUNT<span class="dot">.FUN</span></span>
+      <span class="version">v0.9.1</span>
+    </div>
+    <div class="top-center">
+      <span class="status-dot pulse"></span>
+      <span id="status-text">SCANNING NETWORK...</span>
+      <span class="separator">|</span>
+      <span id="signal-count">0 SIGNALS DETECTED</span>
+      <span class="separator">|</span>
+      <span id="live-clock"></span>
+    </div>
+    <div class="top-right">
+      <div id="hunt-mode-btn" class="hunt-mode-toggle" onclick="toggleHuntMode()">
+        <span class="hm-label">HUNT MODE</span>
+        <span class="hm-status" id="hm-status">OFF</span>
+      </div>
+      <div class="network-tag">SOL</div>
+    </div>
+  </header>
+
+  <!-- ALERT TICKER -->
+  <div class="alert-ticker">
+    <span class="ticker-label">⚡ ALERTS:</span>
+    <div class="ticker-track" id="ticker-track">
+      <span class="ticker-item hot">PUMP FORMING: $CLOWN +340%</span>
+      <span class="ticker-item warn">SMART MONEY ENTERING: $BORK</span>
+      <span class="ticker-item early">EARLY: $MEOW — 3 wallets tracked</span>
+      <span class="ticker-item hot">SPIKE: $DOGE2 liquidity +$220K in 4m</span>
+      <span class="ticker-item warn">WHALE ALERT: 50 SOL into $PEPO</span>
+      <span class="ticker-item late">TOO LATE: $MOON — exit window closing</span>
+    </div>
+  </div>
+
+  <!-- MAIN 3-COLUMN GRID -->
+  <main class="main-grid">
+
+    <!-- ═══ LEFT: LIVE FEED ═══ -->
+    <section class="panel panel-left">
+      <div class="panel-header">
+        <span class="panel-title">▶ LIVE FEED</span>
+        <div class="panel-controls">
+          <button class="ctrl-btn active" onclick="filterFeed('all')">ALL</button>
+          <button class="ctrl-btn" onclick="filterFeed('spikes')">SPIKES</button>
+          <button class="ctrl-btn" onclick="filterFeed('new')">NEW</button>
+          <button class="ctrl-btn" onclick="filterFeed('anomaly')">ANOMALY</button>
+        </div>
+      </div>
+
+      <div class="feed-meta">
+        <span class="feed-col">TOKEN</span>
+        <span class="feed-col">CHANGE</span>
+        <span class="feed-col">LIQ</span>
+        <span class="feed-col">SIGNAL</span>
+      </div>
+
+      <div id="live-feed" class="feed-list"></div>
+    </section>
+
+    <!-- ═══ CENTER: ACTIVE TARGET ═══ -->
+    <section class="panel panel-center">
+      <div class="panel-header">
+        <span class="panel-title">◎ ACTIVE TARGET</span>
+        <div id="target-status" class="target-badge">NO TARGET</div>
+      </div>
+
+      <div id="target-display">
+        <div class="no-target-msg">
+          <div class="crosshair">
+            <div class="ch-h"></div>
+            <div class="ch-v"></div>
+            <div class="ch-center"></div>
+          </div>
+          <p>CLICK A TOKEN TO LOCK TARGET</p>
+          <p class="sub">SCANNING FOR SIGNALS...</p>
+        </div>
+      </div>
+
+      <div id="target-content" class="hidden">
+        <div class="target-header-info">
+          <div class="target-name-block">
+            <span class="target-ticker" id="t-ticker">$???</span>
+            <span class="target-name" id="t-name">UNKNOWN</span>
+          </div>
+          <div class="target-change-block">
+            <span class="target-change" id="t-change">+0%</span>
+            <span class="target-age" id="t-age">0m ago</span>
+          </div>
+        </div>
+
+        <div class="chart-wrapper">
+          <canvas id="price-chart" width="440" height="180"></canvas>
+          <div class="chart-labels">
+            <span id="chart-high" class="chart-label-high">--</span>
+            <span id="chart-low" class="chart-label-low">--</span>
+          </div>
+        </div>
+
+        <div class="signal-score-block">
+          <div class="score-label">SIGNAL SCORE</div>
+          <div class="score-bar-wrap">
+            <div class="score-bar" id="score-bar"></div>
+          </div>
+          <div class="score-value" id="score-value">0</div>
+          <div class="score-verdict" id="score-verdict">CALCULATING...</div>
+        </div>
+
+        <div class="target-stats">
+          <div class="stat-row">
+            <span class="stat-k">LIQUIDITY</span>
+            <span class="stat-v" id="t-liq">$0</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-k">MARKET CAP</span>
+            <span class="stat-v" id="t-mcap">$0</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-k">HOLDERS</span>
+            <span class="stat-v" id="t-holders">0</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-k">CREATED</span>
+            <span class="stat-v" id="t-created">--</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-k">DEX</span>
+            <span class="stat-v" id="t-dex">Raydium</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-k">TOP WALLET %</span>
+            <span class="stat-v" id="t-topwallet">--%</span>
+          </div>
+        </div>
+
+        <div class="action-btns">
+          <button class="action-btn buy-btn" onclick="openTrade('buy')">BUY ON DEX</button>
+          <button class="action-btn track-btn" onclick="trackTarget()">TRACK WALLET</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ RIGHT: INTEL PANEL ═══ -->
+    <section class="panel panel-right">
+      <div class="panel-header">
+        <span class="panel-title">◈ INTEL</span>
+      </div>
+
+      <div class="intel-section">
+        <div class="intel-title">TRACKED WALLETS</div>
+        <div id="wallet-list" class="wallet-list"></div>
+      </div>
+
+      <div class="intel-section">
+        <div class="intel-title">NARRATIVE SCANNER</div>
+        <div id="narrative-list" class="narrative-list"></div>
+      </div>
+
+      <div class="intel-section">
+        <div class="intel-title">RISK INDICATORS</div>
+        <div id="risk-list" class="risk-list"></div>
+      </div>
+
+      <div class="intel-section">
+        <div class="intel-title">ENTRY ALERTS</div>
+        <div id="alert-list" class="alert-list-panel"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TERMINAL POPUP -->
+  <div id="terminal-popup" class="term-popup hidden">
+    <div class="term-popup-inner">
+      <div class="term-popup-header">
+        <span id="popup-title">ALERT</span>
+        <button onclick="closePopup()">✕</button>
+      </div>
+      <div id="popup-body" class="term-popup-body"></div>
+    </div>
+  </div>
+
+  <!-- HUNT MODE OVERLAY -->
+  <div id="hunt-mode-overlay" class="hunt-overlay hidden"></div>
+
+  <script src="js/signals.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="js/feed.js"></script>
+  <script src="js/wallets.js"></script>
+  <script src="js/huntmode.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
