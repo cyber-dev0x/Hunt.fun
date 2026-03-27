@@ -2,63 +2,55 @@
 
 > Hunt early. Exit before they arrive.
 
-A real-time Solana memecoin signal terminal. Black screen, neon green, no mercy.
+A real-time Solana memecoin signal terminal with a neon-green hacker shell aesthetic.
 
-## What It Is
+## Overview
 
-Not a dashboard. Not a landing page. A hunting terminal built for speed and early signal detection in the Solana memecoin market.
+This repository contains a static HTML/CSS/JS demo site for a Solana memecoin hunting terminal. It is built without frameworks and runs directly from `index.html`.
+
+## Repository contents
+
+- `index.html` — boot interface and entry screen
+- `app.html` — main terminal interface with live feed and charts
+- `css/` — style sheets for terminal layout, animations, and visual effects
+- `js/` — JavaScript modules for feed generation, chart rendering, wallet intelligence, and UX controls
+- `assets/` — static images, sounds, and other media used in the UI
+- `.github/workflows/lint.yml` — GitHub Actions workflow for code validation
+- `LICENSE` — MIT license for the repository
+- `.gitignore` — local files excluded from version control
 
 ## Features
 
-- **Live Feed** — new tokens, spikes, anomalies with signal classification
-- **Active Target** — lock any token, view chart + signal score (0–99)
-- **Signal Score System** — composite score from price action, liquidity, holders, smart money
-- **Wallet Tracker** — 1,247 monitored wallets, smart money detection
-- **Narrative Scanner** — trending meta detection
-- **Risk Indicators** — rug score, LP lock, mint authority, bundle detection
-- **Entry Alerts** — real-time terminal popups
-- **Hunt Mode** — faster updates, aggressive highlights (press `H`)
+- Live token feed with signal classification
+- Target lock, chart preview, and signal score display
+- Wallet analytics panel with risk indicators
+- Hunt Mode for faster updates and highlighted triggers
+- Retro terminal style with CRT scanlines and neon glow
 
-## Keyboard Shortcuts
+## Local preview
 
-| Key | Action |
-|-----|--------|
-| `H` | Toggle Hunt Mode |
-| `↑ / ↓` | Navigate feed |
-| `Esc` | Close popup |
+1. Open `index.html` in a browser
+2. Click ENTER to load the terminal UI
+3. Use the keyboard shortcuts:
+   - `H` — toggle Hunt Mode
+   - `↑ / ↓` — navigate feed
+   - `Esc` — close popups
 
-## Stack
+## Development notes
 
-Pure HTML / CSS / JS. No frameworks. No build step. Open `index.html`.
+- No build step required
+- Static site can be served from GitHub Pages or Vercel
+- Keep `.vercel/` local when deploying to Vercel, but do not commit secrets or sensitive data
 
-## Structure
+## Standard GitHub repository setup
 
-```
-hunt.funn/
-├── index.html        Boot terminal + enter screen
-├── app.html          Main 3-column interface
-├── css/
-│   ├── terminal.css  Base terminal styles + CRT effects
-│   ├── app.css       Main app layout + components
-│   └── animations.css Keyframes + effects
-├── js/
-│   ├── boot.js       Boot sequence
-│   ├── signals.js    Token generation + signal math
-│   ├── chart.js      Canvas price chart renderer
-│   ├── feed.js       Live feed engine + target lock
-│   ├── wallets.js    Intel panel (wallets, narratives, risks)
-│   ├── huntmode.js   Hunt mode toggle
-│   └── app.js        App init, clock, shortcuts, popups
-└── assets/
-```
+This repository now includes:
 
-## Design
+- `README.md` with project overview and usage instructions
+- `LICENSE` for open source distribution
+- GitHub Actions workflow for linting static assets
+- Clean folder layout suitable for a static project
 
-- Font: VT323 (display) + Share Tech Mono (body)
-- Colors: `#000000` bg · `#00ff41` green · `#ff2222` red
-- CRT scanlines · radial vignette · glow effects
-- Pixel borders, clip-path buttons, terminal popups
+## License
 
----
-
-*This is a demo UI. No real blockchain data is used.*
+This project is licensed under the MIT License.
